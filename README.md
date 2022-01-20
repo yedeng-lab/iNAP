@@ -31,6 +31,7 @@ PseudoPvals.py SparCC_correlation.txt Plant_6_microbe_8/perm_cor_#.txt 100 -o Sp
 **Here we only introduce brief script to obtain SPIEC-EASI results of interdomain interactions in iNAP.**
 > use 6 for plant abundance data and 8 for microbial data as majority selection criterion.
 ```Rscript
+library(SpiecEasi)
 majority_otu <- 8
 majority_plant <- 6
 otu_table <- read.table("otu.txt",header = T, row.names = 1,sep = "\t")
