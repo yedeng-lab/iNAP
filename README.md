@@ -1,7 +1,7 @@
 # iNAP
 Integrated Network Analysis Pipeline (http://mem.rcees.ac.cn:8081/)
 
-Please see more details in the [iMeta paper](http://www.imeta.science/index.html): 
+Please see more details in the [iMeta paper](http://www.imeta.science/index.html) and [Chinese Version](https://mp.weixin.qq.com/s/C8w1_EzO9v0-hkOebpE3JQ): 
 
 **Kai Feng, Xi Peng, Zheng Zhang, Songsong Gu, Qing He, Wenli Shen, Zhujun Wang, Danrui Wang, Qiulong Hu, Yan Li, Shang Wang, Ye Deng. iNAP: an integrated Network Analysis Pipeline for microbiome studies. iMeta. 2022,1:e13. https://doi.org/10.1002/imt2.13**
 
