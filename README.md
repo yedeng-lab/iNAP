@@ -45,7 +45,7 @@ library(SpiecEasi)
 majority_otu <- 8
 majority_plant <- 6
 otu_table <- read.table("otu.txt",header = T, row.names = 1,sep = "\t")
-plant_table <- read.table(inputPlant,header = T, row.names = 1,sep = "\t")
+plant_table <- read.table("plant.txt",header = T, row.names = 1,sep = "\t")
 samp.name <- interaction(colnames(otu_table),colnames(plant_table))
 otu_table[is.na(otu_table)] = 0
 otu_table2<-otu_table[,samp.name] 
