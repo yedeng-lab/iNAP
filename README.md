@@ -85,4 +85,24 @@ lsa_compute Plant_6_microbe_8.txt LSA_calculation_result.txt -s 4 -r 1 -d 3 -p p
 - **robustZ**: percentileZ normalization + robust estimates (with perm, mix and theo, and must use this for theo and mix, default); **percentile** percentile normalization, including zeros (only with perm); **percentileZ** percentile normalization + Z-normalization; **pnz** percentile normalization, excluding zeros (only with perm); **none** none;
 - **scipy**: Qvalue calculation method
 
+## Pearson/Spearman correlations
+**Here we provided one alternative correlation calculation scripts for Pearson/Spearman methods using 'WGCNA' package in R program. **
+
+**This script would get similar correlation matrix as in iNAP pipeline with 'keep blank' for missing values, and the P values were adjusted using 'fdr' methods, which depends on you. The P values in iNAP were not adjusted, but you can using similar methods as shown here to adjust.**
+```Rscript
+library(WGCNA)
+otu <- read.table("Plant_6_microbe_8.txt",header = T,row.names = 1,sep="\t")
+corres <- corAndPvalue(t(otu),use="pairwise.complete.obs",method = c("spearman"))
+corres.r <- corres$cor
+corres.p <- corres$p
+corres.p.adj <- p.adjust(corres.p[upper.tri(corres.p,diag = F)],method = "fdr")
+corres.p.adj.matrix <- matrix(0,nrow=nrow(corres.p),ncol=ncol(corres.p))
+corres.p.adj.matrix[lower.tri(corres.p,diag = F)] <- corres.p.adj
+corres.p.adj.matrix<-as.matrix(as.dist(corres.p.adj.matrix))
+colnames(corres.p.adj.matrix) = rownames(corres.p.adj.matrix) <- rownames(corres.p)
+write.table(corres.r,"Correlation_matrix_r_values.txt",sep="\t",col.names = NA)
+write.table(corres.p.adj.matrix,"Correlation_matrix_p_adj_values.txt",sep="\t",col.names = NA)
+```
+- **spearman**: using "pearson" or "spearman"
+- **fdr**: using "fdr", "bonferroni", "holm", "hochberg", "hommel", "BH", "BY" or other adjustment methods
 
