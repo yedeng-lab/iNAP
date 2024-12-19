@@ -48,7 +48,7 @@ majority_otu <- 8
 majority_plant <- 6
 otu_table <- read.table("otu.txt",header = T, row.names = 1,sep = "\t")
 plant_table <- read.table("plant.txt",header = T, row.names = 1,sep = "\t")
-samp.name <- interaction(colnames(otu_table),colnames(plant_table))
+samp.name <- intersect(colnames(otu_table),colnames(plant_table))
 otu_table[is.na(otu_table)] = 0
 otu_table2<-otu_table[,samp.name] 
 otu_table2[otu_table2>0] <- 1
@@ -62,7 +62,7 @@ rename_otu<-function(x,y){
 }
 rownames(otu_table_MV)<-sapply(rownames(otu_table_MV),rename_otu,y="M")
 rownames(plant_table_MV)<-sapply(rownames(plant_table_MV),rename_otu,y="P")
-sp.res <- multi.spiec.easi(datalist=list(t(otu_table_MV),t(plant_table_MV)),method="glasso",sel.criterion = "stars",verbose=FALSE,pulsar.select = TRUE,lambda.min.ratio=0.1,nlambda=50,pulsar.params = list(rep.num=50,thresh=0.05,ncores=8),cov.output=TRUE)
+sp.res <- multi.spiec.easi(datalist=list(t(otu_table_MV),t(plant_table_MV)),method="glasso",sel.criterion = "stars",verbose=FALSE,pulsar.select = TRUE,lambda.min.ratio=0.1,nlambda=50,pulsar.params = list(rep.num=50,thresh=0.05,ncores=8),cov.output=TRUE) # change ncores=1 if met errors in windows
 opticov <- getOptiCov(sp.res)
 colnames(opticov) = rownames(opticov) <- colnames(sp.res[["est"]][["data"]])
 write.table(as.matrix(opticov),file = "SpiecEasi_result.txt",sep = "\t",quote=FALSE,col.names=NA)
